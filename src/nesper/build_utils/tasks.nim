@@ -66,9 +66,11 @@ proc parseNimbleArgs(): NimbleArgs =
 
   let
     npathcmd = "nimble --silent path nesper"
+  var
     (nesperPath, rcode) = system.gorgeEx(npathcmd)
   if rcode != 0:
     raise newException( ValueError, "error running getting Nesper path using: `%#`" % [npathcmd])
+  removeSuffix(nesperPath)
 
   # Try setting wifi password
   let wifi_ssid = getEnv("ESP_WIFI_SSID")
